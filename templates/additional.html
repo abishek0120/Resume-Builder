@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Skills, Projects, and Experience{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div id="shiteed">
+
+            <h1 class="text-center mb-4">Add Skills, Projects, and Experience</h1>
+
+            <!-- Skills Section -->
+            <h2 class="mb-3">Skills</h2>
+            <form method="POST" action="{{ url_for('additional_info', resume_id=resume.id) }}">
+                <div class="form-group">
+                    <label for="skill_name">Skill Name:</label>
+                    <input type="text" name="skill_name" id="skill_name" class="form-control" required maxlength="100">
+                </div>
+                <button id="add-skill" type="submit" class="btn btn-primary btn-block">Add Skill</button>
+            </form>
+            <ul class="list-group mt-3">
+                {% for skill in skills %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ skill.name }}
+                        <form method="POST" action="{{ url_for('delete_item', item_type='skill', resume_id=resume.id, item_id=skill.id) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">No skills added yet.</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Projects Section -->
+            <h2 class="mt-5 mb-3">Projects</h2>
+            <form method="POST" action="{{ url_for('additional_info', resume_id=resume.id) }}">
+                <div class="form-group">
+                    <label for="project_name">Project Name:</label>
+                    <input type="text" name="project_name" id="project_name" class="form-control" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="project_description">Project Description:</label>
+                    <textarea name="project_description" id="project_description" class="form-control" rows="4" required maxlength="500"></textarea>
+                </div>
+                <button id="add-project" type="submit" class="btn btn-primary btn-block">Add Project</button>
+            </form>
+            <ul class="list-group mt-3">
+                {% for project in projects %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>{{ project.name }}</strong>
+                        <form method="POST" action="{{ url_for('delete_item', item_type='project', resume_id=resume.id, item_id=project.id) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">No projects added yet.</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Experience Section -->
+            <h2 class="mt-5 mb-3">Experience</h2>
+            <form method="POST" action="{{ url_for('additional_info', resume_id=resume.id) }}">
+                <div class="form-group">
+                    <label for="title">Job Title:</label>
+                    <input type="text" name="title" id="title" class="form-control" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="company">Company:</label>
+                    <input type="text" name="company" id="company" class="form-control" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="job_description">Job Description:</label>
+                    <textarea name="job_description" id="job_description" class="form-control" rows="4" required maxlength="500"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="text" name="start_date" id="start_date" class="form-control" required maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="end_date">End Date:</label>
+                    <input type="text" name="end_date" id="end_date" class="form-control" maxlength="10">
+                </div>
+                <button id="add-experience" type="submit" class="btn btn-primary btn-block">Add Experience</button>
+            </form>
+            <ul class="list-group mt-3">
+                {% for experience in experiences %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>{{ experience.title }}</strong> at {{ experience.company }} ({{ experience.start_date }} - {{ experience.end_date }})
+                        <form method="POST" action="{{ url_for('delete_item', item_type='experience', resume_id=resume.id, item_id=experience.id) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">No experience added yet.</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Finalize Button -->
+            <p class="text-center mt-5">
+                <a href="{{ url_for('view_resume', resume_id=resume.id) }}" class="btn btn-success">Finalize Resume</a>
+            </p>
+        </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Custom CSS for this page -->
+<style>
+
+*{
+    text-decoration: none;
+} 
+
+body {
+    background-image: url('{{ url_for('static', filename='img/beach.jpg') }}'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: black; 
+}
+
+
+.container {
+    width: 50%;
+    margin-left:400px;
+    text-decoration: none;
+    background-color: #b1b1b169; 
+}
+
+
+#shiteed{
+    background-color: #423e7ea2;
+    padding: 20px 50px;
+    margin :20px 0;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+h2 {
+    margin-top: 3rem;
+    color: #00ffb3ec; 
+    font-weight: bold; 
+    text-decoration: none;
+    font-size: 1.5rem; 
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    text-decoration: none;
+}
+
+.form-control {
+    border: 2px solid #000000; 
+text-decoration: none;
+    border-radius: 5px; 
+    font-weight: bold; 
+    font-size: 1rem; 
+}
+
+label{
+    color: #fff;
+}
+
+textarea.form-control {
+    border: 2px solid #000000;
+    border-radius: 5px; 
+    font-weight: bold; 
+    font-size: 1rem; 
+}
+
+.list-group-item {
+    margin-bottom: 1rem;
+    background: #423a6f; /* Background for list items *//* Text color for list items */
+}
+
+.btn {
+    border-radius: 15px; /* Rounded button */
+    transition: background-color 0.3s ease; /* Smooth color change */
+}
+
+.btn-primary {
+    background: #5E5DF0; /* Primary button color */
+}
+
+.btn-primary:hover {
+    background: #3e3b7b; /* Darker on hover */
+}
+
+.btn-danger {
+    background: #dc3545; /* Danger button color */
+}
+
+.btn-danger:hover {
+    background: #b02a37; /* Darker on hover */
+}
+
+@media (max-width: 576px) {
+    .form-control {
+        font-size: 0.875rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+</style>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="login-page">
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form id="loginForm" action="{{ url_for('login') }}" method="post">
+        <h3>Login </h3>
+
+        <label for="email">Username</label>
+        <input type="text" id="email" name="email" placeholder="Email or Phone" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+
+        <button type="submit">Log In</button>
+        <p id="reg" class="mt-3" style="text-align: center;">Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.</p>
+    </form>
+</div>
+
+<!-- Custom CSS -->
+<style media="screen">
+  *,
+  *:before,
+  *:after{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+  }
+
+  body {
+      background-color: #cfcfcf;
+      margin: 0;
+      padding: 0;
+  }
+
+  .login-page {
+    color: #080710;
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .background{
+      position: absolute;
+      width: 430px;
+      height: 520px;
+      z-index: -1; /* Behind the form */
+  }
+
+  .background .shape{
+      height: 200px;
+      width: 200px;
+      position: absolute;
+      border-radius: 50%;
+  }
+
+  .shape:first-child{
+      background: linear-gradient(#1845ad, #23a2f6);
+      left: -80px;
+      top: -80px;
+  }
+
+  .shape:last-child{
+      background: linear-gradient(to right, #ff512f, #f09819);
+      right: -30px;
+      bottom: -80px;
+  }
+
+  form{
+      z-index: 1; /* Bring form on top */
+      height: 520px;
+      width: 400px;
+      background-color: rgba(255,255,255,0.13);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 40px rgba(8,7,16,0.6);
+      padding: 50px 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  form * {
+      font-family: 'Poppins',sans-serif;
+      color: #000000;
+      letter-spacing: 0.5px;
+      outline: none;
+      border: none;
+  }
+
+  form h3 {
+      font-size: 38px;
+      font-weight: 500;
+      line-height: 42px;
+      text-align: center;
+  }
+
+  label {
+      display: block;
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: 600;
+  }
+
+  input {
+      display: block;
+      height: 50px;
+      width: 100%;
+      background-color: rgb(248, 248, 248);
+      border-radius: 30px;
+      border: 2px solid black;
+      padding: 20px 20px;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 300;
+  }
+
+  input:hover{
+    box-shadow: 0px 0px 0px 1px rgb(0, 0, 0);;
+  }
+  
+  form p{
+    color: #000000;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  form p a{
+    color: rgb(0, 255, 255);
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;;
+  }
+
+  ::placeholder {
+      color: #000000;
+      padding-left: 10px;
+  }
+
+  button {
+      margin-top: 50px;
+      width: 100%;
+      background-color: #c21010;
+      color: #fcfcfc;
+      padding: 15px 0;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 15px;
+      cursor: pointer;
+  }
+
+
+</style>
+
+{% endblock %}

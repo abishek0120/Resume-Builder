@@ -1,0 +1,405 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    /* Global Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
+
+
+    /* Left Section (Quote + Image) */
+    .left-div {
+        background-color: #343a40;
+        color: white;
+        padding: 2.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: auto;
+    }
+    .left-div h3 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+    .left-div img {
+        max-width: 80%;
+        height: 400px;
+        margin-top: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .right-div {
+        padding: 4rem;
+        background-color: rgb(255, 255, 255);
+    }
+    .right-div h1 {
+        font-family: 'Dancing Script', sans-serif;
+        font-size: 48px;
+        font-weight: 800;
+        color: #007bff;
+        margin-bottom: 1.5rem;
+    }
+    .right-div p {
+        font-size: 24px;
+        color: #6c757d;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .right-div #create_resume {
+  position: relative;
+  background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%);
+  border: none;
+  color: white;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50px;
+  width:40%;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.right-div #create_resume::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+  transition: opacity 0.4s ease;
+  opacity: 0;
+  z-index: -1;
+  border-radius: 50px;
+}
+
+.right-div #create_resume:hover::before {
+  opacity: 1;
+}
+
+.right-div #create_resume:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.right-div #create_resume:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+    /* About Me Section */
+    .about-me {
+        font-family: 'Dancing Script', sans-serif;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 40px;
+        border-top: 2px solid #eeeeee;
+    }
+    .about-me-text {
+        padding:40px 20px 40px 20px;
+        text-align: center;
+        background-color: #cadaeb;
+    }
+    .about-me h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #007bff;
+    }
+    .about-me p {
+        font-size: 18px;
+        color: #6c757d;
+        line-height: 1.6;
+    }
+
+.review {
+    width: 100%;
+    padding: 40px;
+    background-color: #acd6ff; /* Light gray background */
+    text-align: center;
+    color: #005fb8;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center; /* Center cards */
+    flex-wrap: wrap; /* Allow cards to wrap */
+}
+
+.card {
+    background-color: #ffffff; /* White background for cards */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Inner padding */
+    margin: 10px; /* Space between cards */
+    width: 300px; /* Fixed width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: all 0.3s; /* Smooth shadow transition */
+}
+
+.card:hover {
+    width: 380px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 1.5); /* Deeper shadow on hover */
+}
+
+.card h3 {
+    color: #ff3131; /* Bootstrap primary color */
+    margin-bottom: 10px; /* Space below the heading */
+}
+
+.card p {
+    color: #474747; /* Bootstrap secondary color */
+    font-style: italic; /* Italic text for reviews */
+    line-height: 1.5; /* Improved line height for readability */
+}
+
+
+        /* Contact Me Section */
+/* Contact Me Section */
+.contact-me {
+    font-family: 'Dancing Script', sans-serif;
+    display: flex;
+    color: #6c757d;
+    background-color: #cadaeb;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    justify-content: center; /* Centers content vertically */
+    min-height: 60vh; /* Ensure proper height for centering */
+    margin: 20px auto; /* Center the section with automatic margins */
+    padding: 20px 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 1400px; /* Increased max-width for a wider layout */
+}
+
+.contact-me p{
+    width: 100%;
+    font-size: 20px;
+}
+
+/* Contact Me Heading */
+.contact-me h1 {
+    font-size: 36px;
+    color: #005fb8; /* Better contrast */
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+
+/* Contact Form */
+.contact-form {
+    margin-bottom: 20px;
+    width: 50%; /* Increased width for the form */
+    max-width: 1300px; /* Set a larger maximum width */
+    padding: 30px;
+    color: white;
+    border: 1px solid #640000;
+    border-radius: 10px;
+    background-color: #eb6565;
+    margin: 0 auto; /* Center the form horizontally */
+    text-align: left; /* Align form fields and button to the left */
+}
+
+/* Form Inputs and Textareas */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding and border are included in width */
+}
+
+/* Submit Button */
+.contact-form button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Makes the button a block element */
+    margin: 0 auto; /* Centers the button horizontally */
+}
+
+/* Hover Effect for Button */
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Success Message */
+.success-message {
+    display: none;
+    color: green;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+
+
+    /* Responsive Styles */
+    @media (max-width: 767.98px) {
+        .left-div, .right-div {
+            padding: 2rem;
+        }
+
+        .left-div {
+            height: auto;
+        }
+
+        .right-div h1 {
+            font-size: 36px;
+        }
+
+        .right-div p {
+            font-size: 16px;
+        }
+
+        .right-div .custom-btn {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+    }
+</style>
+
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <!-- Left Section: Quote and Image -->
+        <div class="col-md-4">
+            <div class="left-div">
+                <h3>Transform Your Career with a Tailored Resume</h3>
+                <div>
+                    <img src="{{ url_for('static', filename='img/student.png') }}" alt="Student Image">
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: Content and Call-to-Action -->
+        <div class="col-md-8">
+            <div class="right-div">
+                <h1>ResumeSnap</h1>
+                <p>Your Resume is the Reflection of your Career</p>
+                <p>Easily create the perfect resume for any job using our best-in-class resume builder platform.</p>
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('dashboard') }}" id="create_resume" class="btn custom-btn">Create Your Resume!</a>
+                </div>
+                <p class="mt-5">Our online resume builder offers a quick and easy way to create your professional resume from templates. Fill in your details, use our customizable modern and professional resume templates, and download in TXT or PDF formats.</p>
+            </div>
+        </div>
+
+        <!-- About Me Section -->
+        <div class="about-me">
+            <div class="about-me-text">
+                <h2>About the App</h2>
+                <p>
+
+                    <strong>ResumeSnap</strong> is a self-made web application developed from scratch, demonstrating Gus's expertise and creativity in web development. Built using Flask, a popular Python web framework, ResumeCraft provides a robust solution for crafting and managing professional resumes. This project reflects Gus's capability to create a comprehensive and functional application from the ground up, integrating various technologies to enhance user experience.
+                    <br>
+                    The core functionality of ResumeCraft includes user registration and login, allowing users to securely access their personalized resume features. Once logged in, users are directed to a customizable dashboard where they can create, edit, and manage their resumes. The application offers a variety of resume templates, ensuring users can tailor their resumes to fit their specific needs and preferences with ease.
+                    <br>
+                    An essential feature of ResumeCraft is the ability to download resumes in PDF format, providing users with a professional and easily shareable version of their resumes. The application also features a modern design with a gradient button and animation effects, adding a dynamic and engaging element to the user interface. This attention to design ensures that ResumeCraft not only functions effectively but also looks visually appealing.
+                    <br>
+                    <img src="{{url_for('static',filename='img/resume.jpg')}}" alt="">
+           </div>
+        </div>
+            <div class="review">
+                <h2>What Our Users Say</h2>
+                <div class="review">
+                    <div class="card-container">
+                        {% for review in reviews %}
+                            <div class="card">
+                                <h3>{{ review.email }}</h3>
+                                <p>{{ review.content | truncate(100, '...') }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="contact-me">
+            <h1>Contact Me</h1>
+            <p>If you'd like to include a contact section, you could use a sentence like this:
+                <br>
+                "For any inquiries or to get in touch with me,<strong>Abishek BV</strong>, feel free to reach out at tstark0120@gmail.com."
+                <br>
+                This can be included in the form or below your contact heading for clarity</p>
+                <form id="contactForm" class="contact-form" method="POST" action="/send-message">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Enter your message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn custom-btn">Send Message</button>
+                </form>
+                
+                
+            <div id="resultMessage" class="success-message"></div>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="alert-container">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+        
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script>
+    function sendEmail(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var message = document.getElementById('message').value;
+
+    var templateParams = {
+        from_name: name,
+        from_email: email,
+        message: message
+    };
+
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            document.getElementById('resultMessage').innerText = "Message sent successfully!";
+            document.getElementById('resultMessage').style.display = 'block'; // Show success message
+            document.getElementById('contactForm').reset(); // Reset the form
+        }, function(error) {
+            console.log('FAILED...', error);
+            document.getElementById('resultMessage').innerText = "Message failed to send. Please try again.";
+            document.getElementById('resultMessage').style.display = 'block'; // Show error message
+        });
+}
+
+</script>
+{% endblock %}

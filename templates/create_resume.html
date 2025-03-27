@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Resume{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Create a New Resume</h1>
+    <div class="banner mb-4">
+        <div class="overlay" >
+            <img src="{{url_for('static', filename='img/desktop.jpg')}}" alt="">
+        </div>
+    </div>
+    <form method="POST" class="bg-white p-4 rounded shadow-sm">
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" class="form-control" required maxlength="100">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="role">Role:</label>
+                <input type="text" name="role" id="role" class="form-control" required maxlength="100">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="age">Age:</label>
+                <input type="number" name="age" id="age" class="form-control" required min="0" max="120">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="city">City:</label>
+                <input type="text" name="city" id="city" class="form-control" required maxlength="100">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="country">Country:</label>
+                <input type="text" name="country" id="country" class="form-control" required maxlength="100">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input type="text" name="phone_number" id="phone_number" class="form-control" required maxlength="15">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" class="form-control" required maxlength="100">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="college_name">College Name:</label>
+                <input type="text" name="college_name" id="college_name" class="form-control" required maxlength="100">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="location">Location:</label>
+                <input type="text" name="location" id="location" class="form-control" required maxlength="100">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="degree">Degree:</label>
+                <select name="degree" id="degree" class="form-control" required>
+                    <option value="">Select Degree</option>
+                    <option value="Bachelor of Engineering">Bachelor of Engineering (B.E)</option>
+                    <option value="Bachelor of Science">Bachelor of Science (BSc)</option>
+                    <option value="Bachelor of Arts">Bachelor of Arts (BA)</option>
+                    <option value="Bachelor of Technology">Bachelor of Technology (BTech)</option>
+                    <option value="Master of Science">Master of Science (MSc)</option>
+                    <option value="Master of Arts">Master of Arts (MA)</option>
+                    <option value="Master of Technology">Master of Technology (MTech)</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="course">Course:</label>
+                <select name="course" id="course" class="form-control" required>
+                    <option value="">Select Course</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Business Administration">Business Administration</option>
+                </select>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="graduation_date">Graduation Date:</label>
+                <input type="number" name="graduation_date" id="graduation_date" class="form-control" required min="1900" max="2099">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="summary">Summary:</label>
+            <textarea name="summary" id="summary" class="form-control" rows="4" maxlength="500"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="github">GitHub URL:</label>
+                <input type="url" id="github" name="github" class="form-control" placeholder="https://github.com/yourusername" maxlength="200">
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="linkedin">LinkedIn URL:</label>
+                <input type="url" id="linkedin" name="linkedin" class="form-control" placeholder="https://www.linkedin.com/in/yourprofile" maxlength="200">
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="portfolio">Portfolio URL:</label>
+                <input type="url" id="portfolio" name="portfolio" class="form-control" placeholder="https://yourportfolio.com" maxlength="200">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Resume</button>
+    </form>
+</div>
+
+<!-- Custom CSS for this page -->
+<style>
+/* Create Resume Page Specific Styles */
+.container {
+    max-width: 800px;
+    margin: auto;
+
+}
+
+img{
+    width: 450px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.banner {
+    height: 210px;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+.banner .overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+body {
+    background-image: url('{{ url_for('static', filename='img/layer.jpg') }}'); 
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: white; 
+}
+
+form {
+    background: rgba(255, 255, 255, 0.418); 
+    padding: 30px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+
+.form-group label {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #333;
+    font-size: 18px;
+}
+
+.form-group input {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #000000;
+    border:2px solid #333;
+    font-size: 18px;
+}
+.form-group textarea{
+    margin-top: 20px;
+    border:2px solid #333;
+}
+
+#course{
+    margin-top: 20px;
+    border:2px solid #333;
+}
+
+#degree{
+    margin-top: 20px;
+    border:2px solid #333;
+}
+
+
+.btn-primary {
+    margin-top: 20px;
+    background-color: #4E4DFF;
+    
+                display: inline-block;
+                outline: 0;
+                cursor: pointer;
+                border: 2px solid #000;
+                border-radius: 3px;
+                color: #fff;
+                background: #000;
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 28px;
+                padding: 12px 20px;
+                text-align:center;
+                transition-duration: .15s;
+                transition-property: all;
+                transition-timing-function: cubic-bezier(.4,0,.2,1);
+                
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px); 
+    color: #000;
+    background: rgb(255, 218, 87);
+}
+
+.btn-primary:active {
+    transform: translateY(1px); 
+}
+
+
+@media (max-width: 576px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        font-size: 0.875rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}View Resume{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">{{ resume.name }}'s Resume</h1>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <p><strong>Role:</strong> {{ resume.role }}</p>
+            <p><strong>Age:</strong> {{ resume.age }}</p>
+            <p><strong>City:</strong> {{ resume.city }}</p>
+            <p><strong>Country:</strong> {{ resume.country }}</p>
+            <p><strong>Phone Number:</strong> {{ resume.phone_number }}</p>
+            <p><strong>Email:</strong> {{ resume.email }}</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>College Name:</strong> {{ resume.college_name }}</p>
+            <p><strong>Location:</strong> {{ resume.location }}</p>
+            <p><strong>Degree:</strong> {{ resume.degree }}</p>
+            <p><strong>Course:</strong> {{ resume.course }}</p>
+            <p><strong>Graduation Date:</strong> {{ resume.graduation_date }}</p>
+            <p><strong>Summary:</strong> {{ resume.summary }}</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <h2>Links</h2>
+            <p><strong>GitHub:</strong> <a href="{{ resume.github }}" target="_blank">{{ resume.github }}</a></p>
+            <p><strong>LinkedIn:</strong> <a href="{{ resume.linkedin }}" target="_blank">{{ resume.linkedin }}</a></p>
+            <p><strong>Portfolio:</strong> <a href="{{ resume.portfolio }}" target="_blank">{{ resume.portfolio }}</a></p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2>Skills</h2>
+            <ul class="list-group">
+                {% if skills %}
+                    {% for skill in skills %}
+                        <li class="list-group-item">{{ skill.name }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item">No skills listed.</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2>Projects</h2>
+            <ul class="list-group">
+                {% if projects %}
+                    {% for project in projects %}
+                        <li class="list-group-item"><strong>{{ project.name }}:</strong> {{ project.description }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item">No projects listed.</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2>Experiences</h2>
+            <ul class="list-group">
+                {% if experiences %}
+                    {% for experience in experiences %}
+                        <li class="list-group-item"><strong>{{ experience.title }}:</strong> {{ experience.company }} ({{ experience.start_date }} - {{ experience.end_date }})</li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item">No experiences listed.</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <a href="{{ url_for('edit_resume', resume_id=resume.id) }}" class="btn btn-secondary me-2">Edit Resume</a>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

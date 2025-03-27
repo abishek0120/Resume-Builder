@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    html {
+      height: 100%;
+      background: #f5f5f5;
+    }
+
+    body {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      align-items: center;
+      background: #f5f5f5;
+    }
+
+    .wrapper {
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+      max-width: 960px;
+      width: 90%;
+      background: white;
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #42A8C0;
+      color: white;
+      padding: 20px;
+    }
+
+    .name-container {
+      text-align: center;
+    }
+
+    .name-container h1 {
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    .name-container h4 {
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin: 5px 0;
+    }
+
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .social-container {
+      margin-top: 10px;
+    }
+
+    .contact-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .contact-list li {
+      margin-bottom: 10px;
+    }
+
+    .contact-list .fa {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    .contact-list a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .summ-box {
+      margin-left: 5%;
+      width: 90%;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .line-break {
+      width: 100%;
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
+    }
+
+    .section-title {
+      text-transform: uppercase;
+      font-size: 20px;
+      color: #2d7788;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #2d7788;
+      padding-bottom: 5px;
+    }
+
+    .skills-container {
+      margin-top: 20px;
+      padding: 0 15px;
+    }
+
+    .skills-list {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .skills-list li {
+      width: 30%;
+      font-size: 18px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .skill-icon {
+      font-size: 19px;
+      color: #42A8C0;
+      margin-right: 10px;
+    }
+
+    .meta-info h3,
+    .meta-info .time {
+      margin: 0;
+    }
+
+    .btn-group {
+      margin-bottom: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="btn-group" role="group" aria-label="Actions">
+    <a href="javascript:void(0);" onclick="window.print()" class="btn btn-secondary">Print Resume</a>
+    <a href="{{ url_for('edit_resume', resume_id=resume.id) }}" class="btn btn-secondary">Edit Resume</a>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+    <a href="javascript:void(0);" id="download-pdf" class="btn btn-success">Download PDF</a>
+  </div>
+
+  <div class="wrapper">
+    <!-- Header Section -->
+    <header>
+      <div class="name-container">
+        <h1 class="name">{{ resume.name |upper }}</h1>
+        <h4>{{ resume.role | upper }}</h4>
+      </div>
+
+      <div class="profile-container">
+        <div class="social-container">
+          <ul class="contact-list">
+            <li class="email">
+              <a href="mailto:{{ resume.email }}">
+                <i class="fa fa-envelope" aria-hidden="true"></i> {{ resume.email }}
+              </a>
+            </li>
+            <li class="website">
+              <a href="{{ resume.portfolio }}" target="_blank">
+                <i class="fa fa-globe" aria-hidden="true"></i> {{ resume.portfolio }}
+              </a>
+            </li>
+            <li class="linkedin">
+              <a href="{{ resume.linkedin }}" target="_blank">
+                <i class="fa fa-linkedin" aria-hidden="true"></i> {{ resume.linkedin }}
+              </a>
+            </li>
+            <li class="github">
+              <a href="{{ resume.github }}" target="_blank">
+                <i class="fa fa-github" aria-hidden="true"></i> {{ resume.github }}
+              </a>
+            </li>
+            <li class="phone">
+              <i class="fa fa-phone" aria-hidden="true"></i> {{ resume.phone_number }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Summary Section -->
+      <section class="summ-box">
+        <p>{{ resume.summary }}</p>
+        <div class="line-break"></div>
+      </section>
+
+      <!-- Work Experience Section -->
+      <section class="experience-box">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="item">
+          {% if experiences %}
+          {% for experience in experiences %}
+          <div class="meta-info">
+            <div class="upper-row">
+              <h3 class="job-title">{{ experience.title }}</h3>
+              <div class="time">{{ experience.start_date }} - {{ experience.end_date }}</div>
+            </div>
+            <div class="company">{{ experience.company }}</div>
+          </div>
+          <div class="company">{{ experience.description }}</div>
+          {% endfor %}
+          {% else %}
+          <p>No experiences listed.</p>
+          {% endif %}
+        </div>
+      </section>
+
+      <div class="line-break"></div>
+
+      <!-- Education Section -->
+      <section class="education-box">
+        <h2 class="section-title">Education</h2>
+        <div class="item">
+          <div class="meta-info">
+            <h3 class="job-title">{{ resume.degree }} {{ resume.course }}</h3>
+            <div class="time">{{ resume.graduation_date }}</div>
+            <div class="company">{{ resume.college_name }}, {{ resume.location }}</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="line-break"></div>
+
+      <!-- Skills Section -->
+      <section class="skills-container">
+        <h2 class="section-title">Skills</h2>
+        <ul class="skills-list">
+          {% if skills %}
+          {% for skill in skills %}
+          <li>
+            <i class="fa fa-check-circle skill-icon" aria-hidden="true"></i>
+            {{ skill.name }}
+          </li>
+          {% endfor %}
+          {% else %}
+          <li>No skills listed.</li>
+          {% endif %}
+        </ul>
+      </section>
+
+      <div class="line-break"></div>
+
+      <!-- Projects Section -->
+      <section class="misc-container">
+        <h2 class="section-title">Projects</h2>
+        <ul>
+          {% if projects %}
+          {% for project in projects %}
+          <li>
+            <h3>{{ project.name }}</h3>
+            <p>{{ project.description }}</p>
+          </li>
+          {% endfor %}
+          {% else %}
+          <p>No projects listed.</p>
+          {% endif %}
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Include jsPDF and html2canvas libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    document.getElementById('download-pdf').addEventListener('click', function () {
+      const { jsPDF } = window.jspdf;
+      html2canvas(document.querySelector('.wrapper')).then(canvas => {
+        const pdf = new jsPDF();
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = pdf.internal.pageSize.height;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+
+        let position = 0;
+
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+        pdf.save('resume.pdf');
+      });
+    });
+  </script>
+</body>
+
+</html>
